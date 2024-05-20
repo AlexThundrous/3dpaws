@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Scatter } from 'react-chartjs-2';
 import classNames from 'classnames';
 import {
@@ -18,7 +18,8 @@ ChartJS.register(...registerables);
 
 const ScatterPlot = () => {
   const chartRef = useRef(null);
-  const opened = false; 
+  const [opened, setOpened] = useState(false);
+
   const data = {
     datasets: [
       {
@@ -47,7 +48,7 @@ const ScatterPlot = () => {
           displayFormats: {
             minute: 'HH:mm',
           },
-          min: new Date('2023-05-19T14:40:00'), 
+          min: new Date('2023-05-19T14:40:00'),
         },
         title: {
           display: true,
@@ -61,7 +62,7 @@ const ScatterPlot = () => {
         },
         beginAtZero: true,
         ticks: {
-          stepSize: 100, 
+          stepSize: 100,
         },
       },
     },
@@ -97,14 +98,16 @@ const ScatterPlot = () => {
 
   return (
     <div className="relative w-full h-70vh">
-      <div className={classNames(` absolute top-0 right-0 tham tham-e-squeeze tham-w-6`, { 'tham-active': opened })}>
+      <div className={classNames(`absolute top-0 right-0 tham tham-e-squeeze tham-w-6 mr-4`, { 'tham-active': opened })} onClick={() => setOpened(!opened)}>
         <div className="tham-box">
-        <div className="tham-inner flex flex-col">  
-            <button onClick={() => downloadChart('png')} className="bg-gray-800 text-white ">PNG</button>
-            <button onClick={() => downloadChart('jpg')} className="bg-gray-800 text-white">JPG</button>
-        </div>  
+          <div className="tham-inner"></div>
         </div>
       </div>
+      <div className={classNames("menu bg-white absolute top-8 right-0 p-4 shadow-lg", { hidden: !opened })}>
+        <button onClick={() => downloadChart('png')} className="block mb-2 hover:bg-gray-200">Download PNG</button>
+        <button onClick={() => downloadChart('jpg')} className="block hover:bg-gray-200">Download JPG</button>
+      </div>
+      <br /> <br />
       <Scatter ref={chartRef} data={data} options={options} />
     </div>
   );

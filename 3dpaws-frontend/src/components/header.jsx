@@ -5,7 +5,7 @@ import logo from '../assets/logo.png';
 
 export default function Header() {
   return (
-    <header className="bg-orange-400 w-screen flex items-center justify-evenly">
+    <header className="bg-rose-500 w-screen flex items-center justify-evenly">
       <div className="flex flex-col items-center ml-6 mr-auto">
         <div>
           <Image src={chord} alt="Chord" width="auto" height={40} />
